@@ -9,25 +9,24 @@ import com.pullup.app.entity.UserSecurity;
 import com.pullup.app.repository.UserSecurityRepository;
 
 public class UserSecurityRepositoryImpl implements UserSecurityRepository {
-	
-	public UserSecurityRepositoryImpl(){}
-	
-	@PersistenceContext
-    private EntityManager em; 
-    
-    @Resource
-    private UserTransaction utx; 
-	
-	@Override
-	public void add(UserSecurity usersecurity) {
-		
-		
-	}
 
-	@Override
-	public void get(UserSecurity usersecurity) {
-	
-		
-	}
+    public UserSecurityRepositoryImpl() {
+    }
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Resource
+    private UserTransaction utx;
+
+    @Override
+    public void add(UserSecurity usersecurity) {
+
+    }
+
+    @Override
+    public void get(UserSecurity usersecurity) {
+
+    }
 
 }

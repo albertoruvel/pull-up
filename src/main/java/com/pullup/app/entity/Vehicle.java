@@ -6,6 +6,7 @@
 package com.pullup.app.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,6 +27,9 @@ public class Vehicle implements Serializable{
     
     @Column(name = "plates")
     private String plates; 
+    
+    @Column(name = "model")
+    private String model; 
 
     public Vehicle(String brand, String plates) {
         this.brand = brand;
@@ -33,6 +37,7 @@ public class Vehicle implements Serializable{
     }
 
     public Vehicle() {
+        id = UUID.randomUUID().toString(); 
     }
 
     public String getBrand() {
@@ -49,6 +54,22 @@ public class Vehicle implements Serializable{
 
     public void setPlates(String plates) {
         this.plates = plates;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
     
     

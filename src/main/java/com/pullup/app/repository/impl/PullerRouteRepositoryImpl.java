@@ -8,24 +8,25 @@ import javax.transaction.UserTransaction;
 import com.pullup.app.entity.PullerRoute;
 import com.pullup.app.repository.PullerRouteRepository;
 
-public class PullerRouteRepositoryImpl implements PullerRouteRepository{
-	
-	public PullerRouteRepositoryImpl(){}
+public class PullerRouteRepositoryImpl implements PullerRouteRepository {
 
-	 @PersistenceContext
-	    private EntityManager em; 
-	    
-	    @Resource
-	    private UserTransaction utx; 
-	
-	@Override
-	public void add(PullerRoute route) {
-		
-	}
+    public PullerRouteRepositoryImpl() {
+    }
 
-	@Override
-	public void get(PullerRoute route) {
-		
-	}
+    @PersistenceContext
+    private EntityManager em;
+
+    @Resource
+    private UserTransaction utx;
+
+    @Override
+    public void add(PullerRoute route) {
+
+    }
+
+    @Override
+    public void get(PullerRoute route) {
+
+    }
 
 }

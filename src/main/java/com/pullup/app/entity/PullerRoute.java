@@ -30,12 +30,10 @@ public class PullerRoute implements Serializable{
     /*
     @OneToMany(cascade = CascadeType.PERSIST, 
             mappedBy = "route_id")*/
-    private List<RoutePoint> points; 
 
     public PullerRoute(String id, int radio) {
         this.id = id;
         this.radio = radio;
-        points = new ArrayList<RoutePoint>(); 
     }
 
     public PullerRoute() {
@@ -56,14 +54,4 @@ public class PullerRoute implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
-
-    public List<RoutePoint> getPoints() {
-        return points;
-    }
-
-    public void setPoints(List<RoutePoint> points) {
-        this.points = points;
-    }
-    
-    
 }

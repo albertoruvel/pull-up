@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pullup.app.repository;
-
-import com.pullup.app.entity.User;
+package com.pullup.app.dto.request;
 
 /**
  *
  * @author MACARENA
  */
-public interface UserRepository {
-    public String add(User user); 
-    public void update(User user);
-    public User getUserByEmail(String email); 
+public class CreateEnterpriseRequest {
     
 }

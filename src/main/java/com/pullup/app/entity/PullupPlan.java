@@ -6,15 +6,18 @@
 package com.pullup.app.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author MACARENA
  */
 @Entity(name = "pullupplan")
+@Table(name = "pullupplan")
 public class PullupPlan implements Serializable{
     
     @Id
@@ -37,6 +40,7 @@ public class PullupPlan implements Serializable{
     }
 
     public PullupPlan() {
+        id= UUID.randomUUID().toString(); 
     }
 
     public String getExpiration() {
@@ -84,6 +88,11 @@ public class PullupPlan implements Serializable{
             if(value == 1)
                 return "ANUAL"; 
             else return "MONTHLY"; 
+        }
+        
+        
+        public static PlanType getPlan(String value){
+            return value.equals("anual") ? ANUAL : MONTHLY; 
         }
         
     }

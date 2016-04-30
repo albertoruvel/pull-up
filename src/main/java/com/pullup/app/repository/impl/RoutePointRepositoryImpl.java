@@ -8,24 +8,25 @@ import javax.transaction.UserTransaction;
 import com.pullup.app.entity.RoutePoint;
 import com.pullup.app.repository.RoutePointRepository;
 
-public class RoutePointRepositoryImpl implements RoutePointRepository{
+public class RoutePointRepositoryImpl implements RoutePointRepository {
 
-	public RoutePointRepositoryImpl(){}
-	
-	@PersistenceContext
-    private EntityManager em; 
-    
+    public RoutePointRepositoryImpl() {
+    }
+
+    @PersistenceContext
+    private EntityManager em;
+
     @Resource
-    private UserTransaction utx; 
-    
-	@Override
-	public void add(RoutePoint routepoint) {
-		
-	}
+    private UserTransaction utx;
 
-	@Override
-	public void get(RoutePoint routepoint) {
-		
-	}
+    @Override
+    public void add(RoutePoint routepoint) {
+
+    }
+
+    @Override
+    public void get(RoutePoint routepoint) {
+
+    }
 
 }

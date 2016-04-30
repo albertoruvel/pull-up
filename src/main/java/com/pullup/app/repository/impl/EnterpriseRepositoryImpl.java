@@ -11,50 +11,45 @@ import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 
 import com.pullup.app.entity.Enterprise;
+import com.pullup.app.entity.PullupPlan;
 import com.pullup.app.repository.EnterpriseRepository;
+import java.util.logging.Logger;
+import javax.inject.Inject;
 
-public class EnterpriseRepositoryImpl implements EnterpriseRepository{
+public class EnterpriseRepositoryImpl implements EnterpriseRepository {
 
-	public  EnterpriseRepositoryImpl(){}
-	
-	@PersistenceContext
-    private EntityManager em; 
-    
+    public EnterpriseRepositoryImpl() {
+    }
+
+    @PersistenceContext
+    private EntityManager em;
+
     @Resource
-    private UserTransaction utx; 
-	
-	
-	@Override
-	public void add(Enterprise enterprise) {
-		
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "pullup_pu" );
-	      em= emfactory.createEntityManager( );
-	      em.getTransaction( ).begin( );
-	      enterprise.setName( "Softtek" );
-	      enterprise.setStreet("salud");
-	      enterprise.setInt_number("12345");
-	      enterprise.setOut_number("234");
-	      enterprise.setNeighborhood("Toluca");
-	      enterprise.setState("Juarez");
-	      enterprise.setCountry("Brazil");
-	      
-	      em.persist( enterprise );
-	      em.getTransaction( ).commit( );
+    private UserTransaction utx;
+    
+    @Inject
+    private transient Logger log; 
 
-	      em.close( );
-	      emfactory.close( );
-	}
+    @Override
+    public void add(Enterprise enterprise) {
 
-	@Override
-	public void get(Enterprise enterprise) {
-		
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "pullup_pu" );
-	      em= emfactory.createEntityManager( );
-	      
-	      Query query = em.createQuery("Select e from enterprise e");
-	      List<Enterprise> result = (List<Enterprise>)query.getResultList();
-	      
-		
-	}
+    }
+
+    @Override
+    public void get(Enterprise enterprise) {
+
+    }
+
+    @Override
+    public void addPullupPlan(PullupPlan plan) {
+        try{
+            utx.begin();
+            em.persist(plan);
+            utx.commit();
+            em.close(); 
+        }catch(Exception ex){
+            log.severe("Could not add plan: " + ex.getMessage()); 
+        }
+    }
 
 }

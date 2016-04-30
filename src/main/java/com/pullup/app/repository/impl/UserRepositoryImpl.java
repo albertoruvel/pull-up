@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.NotSupportedException;
@@ -40,8 +41,9 @@ public class UserRepositoryImpl implements UserRepository{
         log.info("Adding new user");
         try{
             utx.begin();
-            em.persist(this);
+            em.persist(user);
             utx.commit();
+            em.close(); 
         }catch(Exception ex){
             log.severe("Exception: " + ex.getMessage()); 
         }
@@ -56,8 +58,13 @@ public class UserRepositoryImpl implements UserRepository{
     @Override 
     public User getUserByEmail(String email){
         Query query =  em.createQuery("SELECT u FROM user u WHERE u.email = :email"); 
-        query.setParameter("id", email); 
-        User user = (User)query.getSingleResult(); 
+        query.setParameter("email", email); 
+        User user = null;
+        try{
+            user = (User)query.getSingleResult(); 
+        }catch(NoResultException ex){
+            log.info("Entity not found: " + ex.getMessage());
+        }
         return user; 
     }
     

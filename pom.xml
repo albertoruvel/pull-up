@@ -21,6 +21,12 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>2.2.1.GA</version>
+            <scope>provided</scope>
+        </dependency>
         
         <dependency>
             <groupId>com.ganyo</groupId>

@@ -6,12 +6,16 @@
 package com.pullup.app.delegate.impl;
 
 import com.pullup.app.delegate.AccountDelegate;
+import com.pullup.app.dto.request.LoginRequest;
 import com.pullup.app.dto.request.RegistrationRequest;
 import com.pullup.app.dto.response.AuthenticationResponse;
 import com.pullup.app.entity.User;
+import com.pullup.app.entity.Vehicle;
 import com.pullup.app.exception.RegistrationException;
 import com.pullup.app.repository.UserRepository;
+import com.pullup.app.repository.VehicleRepository;
 import java.security.SecureRandom;
+import java.util.Date;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
@@ -27,6 +31,9 @@ public class AccountDelegateImpl implements AccountDelegate{
     private UserRepository userRepository; 
     
     @Inject
+    private VehicleRepository vehicleRepository; 
+    
+    @Inject
     private transient Logger log; 
     
     @Override
@@ -39,7 +46,13 @@ public class AccountDelegateImpl implements AccountDelegate{
         if(user == null){
             //user does not exists
             //create a user 
-            user = getUser(request); 
+            user = getUser(request);
+            //register user vehicle 
+            Vehicle vehicle = getVehicle(request); 
+            //add vehicle
+            vehicleRepository.add(vehicle);
+            //set vehicle id 
+            user.setVehicleId(vehicle.getId());
             //add it 
             String userId = userRepository.add(user);
             //create an authentication token 
@@ -71,12 +84,65 @@ public class AccountDelegateImpl implements AccountDelegate{
         User user = new User(); 
         user.setEmail(request.getEmail());
         user.setEnterpriseId(request.getEnterpriseId());
+        //TODO: CHECK ENTERPRISE ID 
         user.setLastName(request.getLastName());
         user.setName(request.getName());
         user.setPassword(request.getPassword());
         user.setPhone(request.getPhone());
         //user.setPictureUrl(pictureUrl);
+        user.setRegistrationDate(new Date().toString());
+        user.setRole(User.UserRole.getRole(request.getRole()));
+        Vehicle vehicle = getVehicle(request);
+        user.setVehicleId(vehicle.getId());
         return user; 
+    }
+    
+    private Vehicle getVehicle(RegistrationRequest request){
+        Vehicle vehicle = new Vehicle(); 
+        vehicle.setBrand(request.getBrand());
+        vehicle.setModel(request.getModel());
+        vehicle.setPlates(request.getPlates());
+        return vehicle; 
+    }
+
+    @Override
+    public Response login(LoginRequest request) {
+        Response response = null; 
+        AuthenticationResponse payload = null; 
+        User user = null; 
+        
+        user = userRepository.getUserByEmail(request.getEmail());
+        if (user != null) {
+            if (request.getPassword().equals(user.getPassword())) {
+                //user is authenticated
+                payload = new AuthenticationResponse();
+                //creates a token 
+                final String token = createAuthToken(user.getId(), user.getEmail());
+                payload.setToken(token);
+                payload.setSuccess(true);
+                payload.setMessage("Welcome to Pull-Up");
+                response = Response.ok(payload)
+                        .build();
+            }else{
+                payload = new AuthenticationResponse();
+            payload.setToken("N/A");
+            payload.setMessage("Email &/or password are incorrect");
+            payload.setSuccess(false);
+            response = Response.ok(payload)
+                    .build();
+            }
+        } else {
+            //user not found 
+            payload = new AuthenticationResponse();
+            payload.setToken("N/A");
+            payload.setMessage("Email &/or password are incorrect");
+            payload.setSuccess(false);
+            response = Response.ok(payload)
+                    .build();
+        }
+
+        
+        return response; 
     }
     
 }

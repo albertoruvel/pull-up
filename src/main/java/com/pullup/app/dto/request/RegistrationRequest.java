@@ -19,6 +19,7 @@ public class RegistrationRequest {
     private String phone; 
     private String role; 
     private String enterpriseId; 
+    private String brand; 
 
     public RegistrationRequest() {
     }
@@ -93,6 +94,14 @@ public class RegistrationRequest {
 
     public void setEnterpriseId(String enterpriseId) {
         this.enterpriseId = enterpriseId;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
     
     

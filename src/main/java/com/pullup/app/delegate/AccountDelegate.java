@@ -5,6 +5,7 @@
  */
 package com.pullup.app.delegate;
 
+import com.pullup.app.dto.request.LoginRequest;
 import com.pullup.app.dto.request.RegistrationRequest;
 import com.pullup.app.exception.RegistrationException;
 import javax.ws.rs.core.Response;
@@ -15,4 +16,5 @@ import javax.ws.rs.core.Response;
  */
 public interface AccountDelegate {
     public Response registerUser(RegistrationRequest request) throws RegistrationException; 
+    public Response login(LoginRequest request); 
 }
