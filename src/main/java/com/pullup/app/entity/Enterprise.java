@@ -6,6 +6,7 @@
 package com.pullup.app.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -40,9 +41,6 @@ public class Enterprise implements Serializable{
     @Column(name = "state")
     private String state;
     
-    @Column(name = "CP")
-    private String CP;
-    
     @Column(name = "country")
     private String country;
     
@@ -50,19 +48,19 @@ public class Enterprise implements Serializable{
     private String pullupPlanId; 
 
     public Enterprise(String name, String street, String int_number, String out_number, String neighborhood,String state,
-    		String CP, String country, String pullupPlanId) {
+    		String country, String pullupPlanId) {
         this.name = name;
         this.street = street;
         this.int_number = int_number;
         this.out_number = out_number;
         this.neighborhood = neighborhood;
         this.state = state;
-        this.CP = CP;
         this.country = country;
         this.pullupPlanId = pullupPlanId;
     }
 
     public Enterprise() {
+        id = UUID.randomUUID().toString(); 
     }
 
     public String getInt_number() {
@@ -97,13 +95,6 @@ public class Enterprise implements Serializable{
 		this.state = state;
 	}
 
-	public String getCP() {
-		return CP;
-	}
-
-	public void setCP(String cP) {
-		CP = cP;
-	}
 
 	public String getCountry() {
 		return country;
@@ -135,6 +126,14 @@ public class Enterprise implements Serializable{
 
     public void setPullupPlanId(String pullupPlanId) {
         this.pullupPlanId = pullupPlanId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
     
     

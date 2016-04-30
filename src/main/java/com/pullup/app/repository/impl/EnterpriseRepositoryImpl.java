@@ -32,7 +32,13 @@ public class EnterpriseRepositoryImpl implements EnterpriseRepository {
 
     @Override
     public void add(Enterprise enterprise) {
-
+        try{
+            utx.begin();
+            em.persist(enterprise);
+            utx.commit();
+        }catch(Exception ex){
+            log.severe("Could not add enterprise: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -46,7 +52,6 @@ public class EnterpriseRepositoryImpl implements EnterpriseRepository {
             utx.begin();
             em.persist(plan);
             utx.commit();
-            em.close(); 
         }catch(Exception ex){
             log.severe("Could not add plan: " + ex.getMessage()); 
         }

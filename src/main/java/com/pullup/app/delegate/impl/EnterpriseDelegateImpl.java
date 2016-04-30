@@ -6,7 +6,10 @@
 package com.pullup.app.delegate.impl;
 
 import com.pullup.app.delegate.EnterpriseDelegate;
+import com.pullup.app.dto.request.CreateEnterpriseRequest;
 import com.pullup.app.dto.request.CreatePullupPlanRequest;
+import com.pullup.app.dto.response.RegistrationResponse;
+import com.pullup.app.entity.Enterprise;
 import com.pullup.app.entity.PullupPlan;
 import com.pullup.app.repository.EnterpriseRepository;
 import javax.inject.Inject;
@@ -34,8 +37,27 @@ public class EnterpriseDelegateImpl implements EnterpriseDelegate{
     }
 
     @Override
-    public Response registerEnterprise() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Response registerEnterprise(CreateEnterpriseRequest request) {
+        //create an enterprise 
+        Enterprise enterprise = getEnterprise(request); 
+        repository.add(enterprise);
+        Response response = null; 
+        response = Response.ok(new RegistrationResponse(true, enterprise.getId()))
+                .build(); 
+        return response; 
+    }
+    
+    private Enterprise getEnterprise(CreateEnterpriseRequest request){
+        Enterprise e = new Enterprise(); 
+        e.setCountry(request.getCountry());
+        e.setInt_number(request.getInt_number());
+        e.setName(request.getName());
+        e.setNeighborhood(request.getNeighborhood());
+        e.setOut_number(request.getOut_number());
+        e.setPullupPlanId(request.getPullupPlanId());
+        e.setState(request.getState());
+        e.setStreet(request.getStreet());
+        return e; 
     }
     
 }

@@ -43,7 +43,6 @@ public class UserRepositoryImpl implements UserRepository{
             utx.begin();
             em.persist(user);
             utx.commit();
-            em.close(); 
         }catch(Exception ex){
             log.severe("Exception: " + ex.getMessage()); 
         }

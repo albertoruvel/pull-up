@@ -30,7 +30,6 @@ public class PullupPlanRepositoryImpl implements PullupPlanRepository {
             utx.begin();
             em.persist(pullupplan);
             utx.commit();
-            em.close(); 
         }catch(Exception ex){
             log.severe("Could not add pullup plan:" + ex.getMessage());
             

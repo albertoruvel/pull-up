@@ -5,6 +5,7 @@
  */
 package com.pullup.app.delegate;
 
+import com.pullup.app.dto.request.CreateEnterpriseRequest;
 import com.pullup.app.dto.request.CreatePullupPlanRequest;
 import javax.ws.rs.core.Response;
 
@@ -14,5 +15,5 @@ import javax.ws.rs.core.Response;
  */
 public interface EnterpriseDelegate {
     public Response registerPullupPlan(CreatePullupPlanRequest request); 
-    public Response registerEnterprise(); 
+    public Response registerEnterprise(CreateEnterpriseRequest request); 
 }
