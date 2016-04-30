@@ -13,14 +13,16 @@ public class AuthenticationResponse {
     private String token; 
     private boolean success; 
     private String message; 
+    private String userId; 
 
     public AuthenticationResponse() {
     }
 
-    public AuthenticationResponse(String token, boolean success, String message) {
+    public AuthenticationResponse(String token, boolean success, String message, String userId) {
         this.token = token;
         this.success = success;
         this.message = message;
+        this.userId = userId; 
     }
 
     
@@ -46,6 +48,14 @@ public class AuthenticationResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
     
     

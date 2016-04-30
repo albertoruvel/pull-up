@@ -6,9 +6,11 @@
 package com.pullup.app.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 /**
@@ -16,6 +18,7 @@ import javax.persistence.Id;
  * @author MACARENA
  */
 @Entity(name = "routerpoint")
+@Table(name = "routerpoint")
 public class RoutePoint implements Serializable{
     
     @Id
@@ -32,7 +35,17 @@ public class RoutePoint implements Serializable{
     private String routeId; 
 
     public RoutePoint() {
+        this.id = UUID.randomUUID().toString(); 
     }
+
+    public RoutePoint(double latitude, double longitude, String routeId) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.routeId = routeId;
+        this.id = UUID.randomUUID().toString(); 
+    }
+    
+    
 
     public double getLatitude() {
         return latitude;

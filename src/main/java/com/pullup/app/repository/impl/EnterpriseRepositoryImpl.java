@@ -15,6 +15,7 @@ import com.pullup.app.entity.PullupPlan;
 import com.pullup.app.repository.EnterpriseRepository;
 import java.util.logging.Logger;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 public class EnterpriseRepositoryImpl implements EnterpriseRepository {
 
@@ -42,8 +43,18 @@ public class EnterpriseRepositoryImpl implements EnterpriseRepository {
     }
 
     @Override
-    public void get(Enterprise enterprise) {
-
+    public Enterprise get(String name) {
+        Enterprise enterprise = null; 
+        
+        Query query = em.createQuery("SELECT e from enterprise e WHERE e.name = :name", Enterprise.class); 
+        query.setParameter("name", name); 
+        
+        try{
+            enterprise = (Enterprise)query.getSingleResult(); 
+        }catch(NoResultException ex){
+            log.severe("No enterprise found with name: " + name);
+        }
+        return enterprise; 
     }
 
     @Override

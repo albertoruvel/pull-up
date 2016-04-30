@@ -9,9 +9,11 @@ import com.pullup.app.delegate.AccountDelegate;
 import com.pullup.app.dto.request.LoginRequest;
 import com.pullup.app.dto.request.RegistrationRequest;
 import com.pullup.app.dto.response.AuthenticationResponse;
+import com.pullup.app.entity.Enterprise;
 import com.pullup.app.entity.User;
 import com.pullup.app.entity.Vehicle;
 import com.pullup.app.exception.RegistrationException;
+import com.pullup.app.repository.EnterpriseRepository;
 import com.pullup.app.repository.UserRepository;
 import com.pullup.app.repository.VehicleRepository;
 import java.security.SecureRandom;
@@ -34,6 +36,9 @@ public class AccountDelegateImpl implements AccountDelegate{
     private VehicleRepository vehicleRepository; 
     
     @Inject
+    private EnterpriseRepository enterpriseRepository; 
+    
+    @Inject
     private transient Logger log; 
     
     @Override
@@ -53,19 +58,30 @@ public class AccountDelegateImpl implements AccountDelegate{
             vehicleRepository.add(vehicle);
             //set vehicle id 
             user.setVehicleId(vehicle.getId());
-            //add it 
-            String userId = userRepository.add(user);
-            //create an authentication token 
-            final String token = createAuthToken(userId, request.getEmail()); 
-            //create a response 
-            authResponse = new AuthenticationResponse(token, true, "Successfuly registered to Pull-Up :)"); 
-            //build a response 
-            payload = Response.ok(authResponse)
-                    .build(); 
+            //get the enterprise 
+            Enterprise enterprise = enterpriseRepository.get(request.getEnterpriseId()); 
+            if(enterprise != null){
+                //set enterprise id 
+                user.setEnterpriseId(enterprise.getId());
+                //add it 
+                String userId = userRepository.add(user);
+                //create an authentication token 
+                final String token = createAuthToken(userId, request.getEmail());
+                //create a response 
+                authResponse = new AuthenticationResponse(token, true, "Successfuly registered to Pull-Up :)", userId);
+                //build a response 
+                payload = Response.ok(authResponse)
+                        .build();
+            }else{
+                authResponse = new AuthenticationResponse("N/A", false, "Enterprise does not exists", "N/A");
+                payload = Response.ok(authResponse)
+                        .build(); 
+            }
+            
         }else{
             //the user exists
             //return a user already registered response 
-            authResponse = new AuthenticationResponse("N/A", false, "A user with this email is already registered"); 
+            authResponse = new AuthenticationResponse("N/A", false, "A user with this email is already registered", "N/A"); 
             payload = Response.ok(authResponse)
                     .build(); 
         }

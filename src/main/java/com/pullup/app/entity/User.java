@@ -54,7 +54,6 @@ public class User implements Serializable{
     @Column(name = "phone")
     private String phone; 
     
-    
     public User() {
         id = UUID.randomUUID().toString(); 
     }
@@ -146,6 +145,7 @@ public class User implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
+    
     public static enum UserRole{
         
         PULLER("puller"), RIDER("rider"); 
