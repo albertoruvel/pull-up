@@ -6,17 +6,21 @@
 package com.pullup.app.delegate.impl;
 
 import com.pullup.app.delegate.AccountDelegate;
+import com.pullup.app.dto.request.CreatePullupRequest;
 import com.pullup.app.dto.request.LoginRequest;
 import com.pullup.app.dto.request.RegistrationRequest;
 import com.pullup.app.dto.response.AuthenticationResponse;
+import com.pullup.app.entity.PullupRequest;
 import com.pullup.app.entity.User;
 import com.pullup.app.entity.Vehicle;
 import com.pullup.app.exception.RegistrationException;
 import com.pullup.app.repository.UserRepository;
 import com.pullup.app.repository.VehicleRepository;
+
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.logging.Logger;
+
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
@@ -145,4 +149,30 @@ public class AccountDelegateImpl implements AccountDelegate{
         return response; 
     }
     
+    
+    
+    @Override
+    public Response registerPullupResource(CreatePullupRequest request) {
+        Response response = null;  
+        PullupRequest pRequest = null; 
+        
+        pRequest = PullupRequest.setRiderId(request.getRiderId());
+        if (pRequest != null) {
+                response = Response.ok(pRequest)
+                        .build();
+            }else{
+      
+            }
+        
+
+        
+        return response; 
+    }
+
+private PullupRequest getRiderId(CreatePullupRequest request2){
+   PullupRequest request = new PullupRequest(); 
+   request2.setRiderId((request.getRiderId()));
+    return request; 
+		}
+	
 }

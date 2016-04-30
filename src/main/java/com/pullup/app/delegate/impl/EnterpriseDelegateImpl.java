@@ -12,6 +12,7 @@ import com.pullup.app.dto.response.RegistrationResponse;
 import com.pullup.app.entity.Enterprise;
 import com.pullup.app.entity.PullupPlan;
 import com.pullup.app.repository.EnterpriseRepository;
+
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
@@ -35,7 +36,9 @@ public class EnterpriseDelegateImpl implements EnterpriseDelegate{
         return Response.ok()
                 .build(); 
     }
-
+    
+  
+ 
     @Override
     public Response registerEnterprise(CreateEnterpriseRequest request) {
         //create an enterprise 
