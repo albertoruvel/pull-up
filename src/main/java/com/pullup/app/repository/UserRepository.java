@@ -12,6 +12,7 @@ import com.pullup.app.entity.User;
  * @author MACARENA
  */
 public interface UserRepository {
-    public void add(User user); 
+    public String add(User user); 
     public void update(User user);
+    public User getUserByEmail(String email); 
 }

@@ -17,6 +17,8 @@ public class RegistrationRequest {
     private String email; 
     private String password; 
     private String phone; 
+    private String role; 
+    private String enterpriseId; 
 
     public RegistrationRequest() {
     }
@@ -76,6 +78,23 @@ public class RegistrationRequest {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(String enterpriseId) {
+        this.enterpriseId = enterpriseId;
+    }
+    
     
     
 }
