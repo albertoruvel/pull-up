@@ -6,15 +6,18 @@
 package com.pullup.app.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author MACARENA
  */
 @Entity(name = "user")
+@Table(name = "user")
 public class User implements Serializable{
     
     @Id
@@ -52,6 +55,7 @@ public class User implements Serializable{
     private String phone; 
 
     public User() {
+        id = UUID.randomUUID().toString(); 
     }
 
     public String getName() {
@@ -132,6 +136,14 @@ public class User implements Serializable{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
     
     

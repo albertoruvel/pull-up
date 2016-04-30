@@ -36,7 +36,7 @@ public class AccountResource {
         try{
             payload = delegate.registerUser(request); 
         }catch(RegistrationException ex){
-            
+            log.severe("Could not register new user: " + ex.getMessage());
         }
         return payload; 
     }

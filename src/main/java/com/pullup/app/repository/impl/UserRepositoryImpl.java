@@ -7,9 +7,14 @@ package com.pullup.app.repository.impl;
 
 import com.pullup.app.entity.User;
 import com.pullup.app.repository.UserRepository;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.NotSupportedException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 /**
@@ -18,23 +23,42 @@ import javax.transaction.UserTransaction;
  */
 public class UserRepositoryImpl implements UserRepository{
 
-    public UserRepositoryImpl() {
-    }
+    @Inject
+    private transient Logger log; 
     
     @PersistenceContext
     private EntityManager em; 
     
     @Resource
     private UserTransaction utx; 
+    
+    public UserRepositoryImpl() {
+    }
 
     @Override
-    public void add(User user) {
-        
+    public String add(User user) {
+        log.info("Adding new user");
+        try{
+            utx.begin();
+            em.persist(this);
+            utx.commit();
+        }catch(Exception ex){
+            log.severe("Exception: " + ex.getMessage()); 
+        }
+        return user.getId(); 
     }
 
     @Override
     public void update(User user) {
         
+    }
+    
+    @Override 
+    public User getUserByEmail(String email){
+        Query query =  em.createQuery("SELECT u FROM user u WHERE u.email = :email"); 
+        query.setParameter("id", email); 
+        User user = (User)query.getSingleResult(); 
+        return user; 
     }
     
 }
