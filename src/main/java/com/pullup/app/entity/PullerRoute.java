@@ -27,9 +27,9 @@ public class PullerRoute implements Serializable{
     
     @Column(name = "radio")
     private int radio; 
-    
+    /*
     @OneToMany(cascade = CascadeType.PERSIST, 
-            mappedBy = "route_id")
+            mappedBy = "route_id")*/
     private List<RoutePoint> points; 
 
     public PullerRoute(String id, int radio) {

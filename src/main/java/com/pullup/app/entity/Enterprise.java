@@ -25,22 +25,95 @@ public class Enterprise implements Serializable{
     @Column(name = "name")
     private String name;
     
-    @Column(name = "address")
-    private String address; 
+    @Column(name = "street")
+    private String street; 
+    
+    @Column(name = "int_number")
+    private String int_number;
+    
+    @Column(name = "out_number")
+    private String out_number;
+    
+    @Column(name = "neighborhood")
+    private String neighborhood;
+    
+    @Column(name = "state")
+    private String state;
+    
+    @Column(name = "CP")
+    private String CP;
+    
+    @Column(name = "country")
+    private String country;
     
     @Column(name = "pullup_plan_id")
     private String pullupPlanId; 
 
-    public Enterprise(String name, String address, String pullupPlanId) {
+    public Enterprise(String name, String street, String int_number, String out_number, String neighborhood,String state,
+    		String CP, String country, String pullupPlanId) {
         this.name = name;
-        this.address = address;
+        this.street = street;
+        this.int_number = int_number;
+        this.out_number = out_number;
+        this.neighborhood = neighborhood;
+        this.state = state;
+        this.CP = CP;
+        this.country = country;
         this.pullupPlanId = pullupPlanId;
     }
 
     public Enterprise() {
     }
 
-    public String getName() {
+    public String getInt_number() {
+		return int_number;
+	}
+
+	public void setInt_number(String int_number) {
+		this.int_number = int_number;
+	}
+
+	public String getOut_number() {
+		return out_number;
+	}
+
+	public void setOut_number(String out_number) {
+		this.out_number = out_number;
+	}
+
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCP() {
+		return CP;
+	}
+
+	public void setCP(String cP) {
+		CP = cP;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getName() {
         return name;
     }
 
@@ -48,12 +121,12 @@ public class Enterprise implements Serializable{
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getPullupPlanId() {
