@@ -1,0 +1,154 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.pullup.app.entity;
+
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+/**
+ *
+ * @author MACARENA
+ */
+@Entity(name = "user")
+public class User implements Serializable{
+    
+    @Id
+    @Column(name = "id")
+    private String id; 
+    
+    @Column(name = "name")
+    private String name;
+    
+    @Column(name = "last_name")
+    private String lastName;
+    
+    @Column(name = "role")
+    private UserRole role; 
+    
+    @Column(name = "picture_url")
+    private String pictureUrl; 
+    
+    @Column(name = "vehicle_id")
+    private String vehicleId; 
+    
+    @Column(name = "email")
+    private String email; 
+    
+    @Column(name = "password")
+    private String password;
+    
+    @Column(name = "registration_date")
+    private String registrationDate; 
+    
+    @Column(name = "enterprise_id")
+    private String enterpriseId; 
+    
+    @Column(name = "phone")
+    private String phone; 
+
+    public User() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public String getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(String vehicleId) {
+        this.vehicleId = vehicleId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public String getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(String enterpriseId) {
+        this.enterpriseId = enterpriseId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
+    
+    
+    
+    public static enum UserRole{
+        
+        PULLER("puller"), RIDER("rider"); 
+        String value; 
+
+        private UserRole(String value) {
+            this.value = value; 
+        }
+
+        @Override
+        public String toString() {
+            return value; 
+        }
+    }
+}
