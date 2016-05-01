@@ -8,17 +8,23 @@ package com.pullup.app.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
  * @author MACARENA
  */
 @Entity(name = "pullerroute")
+@Table(name="pullerroute")
 public class PullerRoute implements Serializable{
     
     @Id
@@ -26,10 +32,16 @@ public class PullerRoute implements Serializable{
     private String id;
     
     @Column(name = "radio")
-    private int radio; 
-    /*
-    @OneToMany(cascade = CascadeType.PERSIST, 
-            mappedBy = "route_id")*/
+    private double radio; 
+    
+    @Column(name = "puller_id")
+    private String pullerId; 
+    
+    @Transient
+    private List<RoutePoint> points; 
+    
+     @Column(name = "active")
+    private boolean active; 
 
     public PullerRoute(String id, int radio) {
         this.id = id;
@@ -37,13 +49,16 @@ public class PullerRoute implements Serializable{
     }
 
     public PullerRoute() {
+        id = UUID.randomUUID().toString(); 
+        points = new ArrayList<RoutePoint>(); 
+        
     }
 
-    public int getRadio() {
+    public double getRadio() {
         return radio;
     }
 
-    public void setRadio(int radio) {
+    public void setRadio(double radio) {
         this.radio = radio;
     }
 
@@ -54,4 +69,30 @@ public class PullerRoute implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
+
+    public List<RoutePoint> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<RoutePoint> points) {
+        this.points = points;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getPullerId() {
+        return pullerId;
+    }
+
+    public void setPullerId(String pullerId) {
+        this.pullerId = pullerId;
+    }
+    
+    
 }

@@ -40,7 +40,7 @@ public class AccountResource {
     @POST
     @Produces("application/json")
     @Consumes("application/json")
-    public Response register(@MultipartForm RegistrationRequest request){
+    public Response register(RegistrationRequest request){
         Response payload = null; 
         try{
             payload = delegate.registerUser(request); 

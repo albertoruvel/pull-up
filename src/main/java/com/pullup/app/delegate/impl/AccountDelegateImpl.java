@@ -11,11 +11,14 @@ import com.pullup.app.dto.request.LoginRequest;
 import com.pullup.app.dto.request.RegistrationRequest;
 import com.pullup.app.dto.response.AuthenticationResponse;
 import com.pullup.app.entity.PullupRequest;
+import com.pullup.app.entity.Enterprise;
 import com.pullup.app.entity.User;
 import com.pullup.app.entity.Vehicle;
 import com.pullup.app.exception.RegistrationException;
+import com.pullup.app.repository.EnterpriseRepository;
 import com.pullup.app.repository.UserRepository;
 import com.pullup.app.repository.VehicleRepository;
+import com.pullup.app.repository.PullupRequestRepository;
 
 import java.security.SecureRandom;
 import java.util.Date;
@@ -38,6 +41,9 @@ public class AccountDelegateImpl implements AccountDelegate{
     private VehicleRepository vehicleRepository; 
     
     @Inject
+    private EnterpriseRepository enterpriseRepository; 
+    
+    @Inject
     private transient Logger log; 
     
     @Override
@@ -57,19 +63,30 @@ public class AccountDelegateImpl implements AccountDelegate{
             vehicleRepository.add(vehicle);
             //set vehicle id 
             user.setVehicleId(vehicle.getId());
-            //add it 
-            String userId = userRepository.add(user);
-            //create an authentication token 
-            final String token = createAuthToken(userId, request.getEmail()); 
-            //create a response 
-            authResponse = new AuthenticationResponse(token, true, "Successfuly registered to Pull-Up :)"); 
-            //build a response 
-            payload = Response.ok(authResponse)
-                    .build(); 
+            //get the enterprise 
+            Enterprise enterprise = enterpriseRepository.get(request.getEnterpriseId()); 
+            if(enterprise != null){
+                //set enterprise id 
+                user.setEnterpriseId(enterprise.getId());
+                //add it 
+                String userId = userRepository.add(user);
+                //create an authentication token 
+                final String token = createAuthToken(userId, request.getEmail());
+                //create a response 
+                authResponse = new AuthenticationResponse(token, true, "Successfuly registered to Pull-Up :)", userId);
+                //build a response 
+                payload = Response.ok(authResponse)
+                        .build();
+            }else{
+                authResponse = new AuthenticationResponse("N/A", false, "Enterprise does not exists", "N/A");
+                payload = Response.ok(authResponse)
+                        .build(); 
+            }
+            
         }else{
             //the user exists
             //return a user already registered response 
-            authResponse = new AuthenticationResponse("N/A", false, "A user with this email is already registered"); 
+            authResponse = new AuthenticationResponse("N/A", false, "A user with this email is already registered", "N/A"); 
             payload = Response.ok(authResponse)
                     .build(); 
         }
@@ -154,25 +171,23 @@ public class AccountDelegateImpl implements AccountDelegate{
     @Override
     public Response registerPullupResource(CreatePullupRequest request) {
         Response response = null;  
-        PullupRequest pRequest = null; 
         
-        pRequest = PullupRequest.setRiderId(request.getRiderId());
+        PullupRequestRepository pRequest = PullupRequest.setRiderId(request.getRiderId());
         if (pRequest != null) {
+        	pRequest = (PullupRequestRepository) getRiderId(request);
+        	String riderId = PullupRequestRepository.add(pRequest);
                 response = Response.ok(pRequest)
                         .build();
             }else{
       
-            }
-        
-
-        
+            }        
         return response; 
     }
 
-private PullupRequest getRiderId(CreatePullupRequest request2){
-   PullupRequest request = new PullupRequest(); 
-   request2.setRiderId((request.getRiderId()));
-    return request; 
+private PullupRequest getRiderId(CreatePullupRequest request){
+   PullupRequest pRequest = new PullupRequest(); 
+   pRequest.setRiderId((request.getRiderId()));
+    return pRequest; 
 		}
 	
 }

@@ -5,6 +5,6 @@ import com.pullup.app.entity.PullupPlan;
 
 public interface EnterpriseRepository {
 	public void add(Enterprise enterprise);
-	public void get(Enterprise enterprise);
+	public Enterprise get(String name);
         public void addPullupPlan(PullupPlan plan); 
 }
